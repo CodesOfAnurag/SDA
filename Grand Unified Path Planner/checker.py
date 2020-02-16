@@ -4,8 +4,24 @@ import math
   
 avoidance_data = []
 
-def checker(a, b, c, x, y, radius): 
-    dist = ((abs(a * x + b * y + c)) / math.sqrt(a * a + b * b))
+def distance(x1, y1, x2, y2, x3, y3):
+    px = x2 - x1
+    py = y2 - y2
+    norm = px * px + py * py
+    u = ((x3 - x1) * px + (y3 - y1) * py) / norm
+    if u > 1:
+        u = 1
+    elif u < 0:
+        u = 0
+    x = x1 + u * px
+    y = y1 + u * py
+    dx = x - x3
+    dy = y - y3
+    dist = (dx * dx + dy * dy) ** 0.5
+    return dist
+
+def checker(x1, y1, x2, y2, x3, y3, radius): 
+    dist = distance(x1, y1, x2, y2, x3, y3)
     if (radius >= dist):
         return 1
     else:
@@ -18,14 +34,11 @@ for i in range(l-1):
     y1 = coord_conversion.cartesian_waypoints[i][1]
     x2 = coord_conversion.cartesian_waypoints[i+1][0]
     y2 = coord_conversion.cartesian_waypoints[i+1][1]
-    a = y1 - y2
-    b = x2 - x1
-    c = (x1 * y2) - (x2 * y1)
     for i in coord_conversion.cartesian_obstacles:
-        x = i[0]
-        y = i[1]
+        x3 = i[0]
+        y3 = i[1]
         r = i[2]
-        if (checker(a, b, c, x, y, r) == 1):
+        if (checker(x1, y1, x2, y2, x3, y3, r)):
             avoidance_data.append([x1, y1, x2, y2, x, y, r])
 
 print(avoidance_data)   
