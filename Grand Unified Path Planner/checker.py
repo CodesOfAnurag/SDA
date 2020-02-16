@@ -1,6 +1,5 @@
 #The objective of this program is to check if there's an obstacle between two points and return where 
 import coord_conversion
-import math 
   
 avoidance_data = []
 
