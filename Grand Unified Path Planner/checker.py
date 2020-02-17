@@ -38,6 +38,6 @@ for i in range(l-1):
         y3 = i[1]
         r = i[2]
         if (checker(x1, y1, x2, y2, x3, y3, r)):
-            avoidance_data.append([x1, y1, x2, y2, x, y, r])
+            avoidance_data.append([x1, y1, x2, y2, x3, y3, r])
 
 print(avoidance_data)   
